@@ -1,0 +1,206 @@
+/*
+  Blink
+  The basic Energia example.
+  Turns on an LED on for one second, then off for one second, repeatedly.
+  Change the LED define to blink other LEDs.
+  
+  Hardware Required:
+  * LaunchPad with an LED
+  
+  This example code is in the public domain.
+*/
+
+// most launchpads have a red LED
+#define LED1 2
+#define LED2 3
+#define LED3 4
+#define LED4 5
+#define LED5 6
+#define LED6 7
+#define LED7 8
+#define LED8 9
+#define BTN1 1
+#define BTN2 0
+#define BTN3 10
+
+#define LED_R 11 // Pin para el componente Rojo del LED RGB incorporado
+#define LED_B 12  // Pin para el componente Verde del LED RGB incorporado
+#define LED_G 13  // Pin para el componente Azul del LED RGB incorporado
+
+
+//see pins_energia.h for more LED definitions
+//#define LED GREEN_LED
+int contador = 0, contador2=0;  
+int estado =0, estado2=0;
+int estado_ant = HIGH, flag=0, estado_ant2= HIGH; 
+// the setup routine runs once when you press reset:
+void setup() {                
+  // initialize the digital pin as an output. 
+  pinMode(LED1, OUTPUT);
+  pinMode(LED2, OUTPUT);
+  pinMode(LED3, OUTPUT);
+  pinMode(LED4, OUTPUT);
+  pinMode(LED5, OUTPUT);
+  pinMode(LED6, OUTPUT);
+  pinMode(LED7, OUTPUT);
+  pinMode(LED8, OUTPUT);
+  pinMode(BTN1, INPUT_PULLUP);
+  pinMode(BTN2, INPUT_PULLUP);
+  pinMode(BTN3, INPUT_PULLUP);
+
+  pinMode(LED_R, OUTPUT);
+  pinMode(LED_G, OUTPUT);
+  pinMode(LED_B, OUTPUT);
+}
+
+
+// the loop routine runs over and over again forever:
+void loop() {
+    // Lee el estado actual del botón
+  if(flag == 0)
+  {
+    int iniciar = digitalRead(BTN2);
+    if (iniciar == 0){
+    delay(500);
+      digitalWrite(LED_R, 1);
+      digitalWrite(LED_B, 0);
+      digitalWrite(LED_G, 0);
+      delay(1000);
+      digitalWrite(LED_R, 1);
+      digitalWrite(LED_B, 0);
+      digitalWrite(LED_G, 1);
+      delay(1000);
+      digitalWrite(LED_R, 0);
+      digitalWrite(LED_B, 0);
+      digitalWrite(LED_G, 1);
+      delay(1000);
+      flag = 1;
+      }
+   }
+   else if(flag == 1){
+    int estado = digitalRead(BTN1);
+     int estado2 = digitalRead(BTN3);
+
+  if (estado == 0 && digitalRead(BTN1)==1)
+  {
+    //delay(150);
+    if (contador ==4)
+    {
+      contador =0;
+      }
+    contador++;
+
+    switch (contador){
+      case 1:
+        digitalWrite(LED1, 1);
+        digitalWrite(LED2, 0);
+        digitalWrite(LED3, 0);
+        digitalWrite(LED4, 0);
+
+      break;
+      case 2:
+        digitalWrite(LED1, 0);
+        digitalWrite(LED2, 1);
+        digitalWrite(LED3, 0);
+        digitalWrite(LED4, 0);
+  
+      break;
+      case 3:
+        digitalWrite(LED1, 0);
+        digitalWrite(LED2, 0);
+        digitalWrite(LED3, 1);
+        digitalWrite(LED4, 0);
+ 
+      break;
+       case 4:
+        digitalWrite(LED1, 0);
+        digitalWrite(LED2, 0);
+        digitalWrite(LED3, 0);
+        digitalWrite(LED4, 1);
+  
+      break;
+      default:
+        {
+          digitalWrite(LED1, 0);
+          digitalWrite(LED2, 0);
+          digitalWrite(LED3, 0);
+          digitalWrite(LED4, 0);
+
+        }
+    }
+    estado_ant = LOW; 
+  }
+  else
+    estado_ant = HIGH;
+     
+   if (estado2 == 0 && digitalRead(BTN3)==1)
+  {
+    //delay(150);
+    if (contador2 ==4)
+    {
+      contador2 =0;
+      }
+    contador2++;
+
+    switch (contador2){
+      case 1:
+        digitalWrite(LED5, 1);
+        digitalWrite(LED6, 0);
+        digitalWrite(LED7, 0);
+        digitalWrite(LED8, 0);
+
+      break;
+      case 2:
+        digitalWrite(LED5, 0);
+        digitalWrite(LED6, 1);
+        digitalWrite(LED7, 0);
+        digitalWrite(LED8, 0);
+  
+      break;
+      case 3:
+        digitalWrite(LED5, 0);
+        digitalWrite(LED6, 0);
+        digitalWrite(LED7, 1);
+        digitalWrite(LED8, 0);
+ 
+      break;
+       case 4:
+        digitalWrite(LED5, 0);
+        digitalWrite(LED6, 0);
+        digitalWrite(LED7, 0);
+        digitalWrite(LED8, 1);
+  
+      break;
+      default:
+        {
+          digitalWrite(LED5, 0);
+          digitalWrite(LED6, 0);
+          digitalWrite(LED7, 0);
+          digitalWrite(LED8, 0);
+
+        }
+    }
+    estado_ant2 = LOW; 
+  }
+  else
+    estado_ant2 = HIGH;
+     
+   
+  if(contador==4)
+  {
+    digitalWrite(LED_B, 1);
+    digitalWrite(LED_R, 0);
+    digitalWrite(LED_G, 0);
+  }
+     else{
+     if(contador2==4)
+  {
+    digitalWrite(LED_B, 0);
+    digitalWrite(LED_R, 1);
+    digitalWrite(LED_G, 0);
+  }
+     }
+     
+   }  
+
+}
